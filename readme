@@ -8,6 +8,7 @@ SYNOPSIS
   use Win32::SearchPath;
 
   $FullPath = SearchPath ('perl');
+  $FullPath = SearchPath ('perl', 'C:\\Bin;C:\\Perl\Bin;D:\\Bin');
 
 DESCRIPTION
 
@@ -16,8 +17,17 @@ requires the full path name of the executable, which SearchPath provides.
 
    $FULL_PATH = SearchPath(FILENAME)
 
-Search for the specified FILENAME.  By default the extension ".exe" is added to 
-FILENAME, but this is ignored if it already has an extension.  
+Search for the specified FILENAME in the standard Windows search path.  
+By default the extension ".exe" is added to FILENAME, but this is ignored 
+if it already has an extension.  
+
+Alternatively a specific 'Path' list may be specified:
+
+   $FULL_PATH = SearchPath(FILENAME,PATHLIST)
+
+PATHLIST must be a list of directory names separated by semi-colons (';').  Only 
+these directory names will be searched for FILENAME, sub-directories are not 
+searched unless they are specifically included in the list.  
 
 INSTALLATION
 

@@ -31,6 +31,7 @@ Win32::SearchPath - Perl extension for the Win32 API SearchPath.
   use Win32::SearchPath;
 
   $FullPath = SearchPath ('perl');
+  $FullPath = SearchPath ('perl', 'C:\\Bin;C:\\Perl\Bin;D:\\Bin');
 
 =head1 DESCRIPTION
 
@@ -40,19 +41,31 @@ requires the full path name of the executable, which SearchPath provides.
    $FULL_PATH = SearchPath(FILENAME)
 
 Search for the specified FILENAME.  By default the extension ".exe" is added to 
-FILENAME, but this is ignored if it already has an extension.
+FILENAME, but this is ignored if it already has an extension.  The full path name of
+the file is returned, or undef on error.  The path name may be in '8.3' format, which
+can be converted using Win32::GetLongPathName if desired.
 
-The SearchPath API searches directories in the same order as code is loaded by 
+By default, the SearchPath API searches directories in the same order as code is loaded by 
 the operating system (dll's and exe's), which is:
 
-   1.  The directory from which the application was loaded ($Config{perlpath}).
+   1.  The directory from which the application was loaded.
    2.  The current directory.
    3.  The Windows system directory (SYSTEM32 on NT, 2000, XP, et al)
-   4.  The 16-bit Windows system directory (named SYSTEM, but largely obsolete).
-   5.  The 'top level' Windows directory, in $ENV{SystemRoot} (or %SystemRoot%).
-   6.  Finally it gets to search directories in the Path environment variable.
+   4.  The 16-bit Windows system directory (named SYSTEM, largely obsolete).
+   5.  The 'top level' Windows directory, in $ENV{SystemRoot}.
+   6.  Finally it searches directories in the Path environment variable.
 
-Although non-executable files can be searched for in this way, it is not really 
+Alternatively a specific 'Path' list may be specified:
+
+   $FULL_PATH = SearchPath(FILENAME,PATHLIST)
+
+PATHLIST must be a list of directory names separated by semi-colons (';').  Only these 
+directory names will be searched for FILENAME, sub-directories are not searched unless
+they are specifically included in the list.  As with most Windows APIs, the directory
+separator may be either 'slash' character (\ or /), but the returned path name will
+contain back-slashes (\).
+
+Although non-executable files can be searched for using this module, it is not really 
 suitable for anything other than finding executables.
 
 In the event of an error undef is returned, in which case $^E 
