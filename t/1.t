@@ -32,3 +32,4 @@ ok($FullPath, 'check non-.exe extension 1');
 
 $FullPath = SearchPath ('config.pl');
 ok($FullPath, 'check non-.exe extension 2');
+

@@ -1,8 +1,7 @@
-Win32/SearchPath version 0.01
+Win32/SearchPath version 0.02
 =============================
 
-Win32::SearchPath - Perl extension for the Win32 API SearchPath, and 
-filename extension association resolution.
+Win32::SearchPath - Perl extension for the Win32 API SearchPath.
 
 SYNOPSIS
 
@@ -17,8 +16,8 @@ requires the full path name of the executable, which SearchPath provides.
 
    $FULL_PATH = SearchPath(FILENAME)
 
-   Search for the specified FILENAME.  By default the extension ".exe" is added to 
-   FILENAME, but this is ignored if it already has an extension.
+Search for the specified FILENAME.  By default the extension ".exe" is added to 
+FILENAME, but this is ignored if it already has an extension.  
 
 INSTALLATION
 
